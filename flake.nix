@@ -17,9 +17,12 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Additional inputs you still need
-    # hyprland.url = "github:hyprwm/Hyprland";
     nix-colors.url = "github:misterio77/nix-colors";
     prism.url = "github:IogaMaster/prism";
+    zen-profile = {
+    url = "git+ssh://git@github.com/iluvshiwoon/zen-profile?ref=main";
+  # This will use your SSH key for authentication
+};
     
     # Plugins
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -43,7 +46,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, zen-profile, darwin, ... }@inputs:
     let
       inherit (self) outputs;
       # Supported systems for your flake packages, shell, etc.
