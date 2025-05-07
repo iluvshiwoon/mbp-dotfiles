@@ -395,7 +395,8 @@
         "plugin-header_42_vim": "plugin-header_42_vim",
         "plugin-norminette-vim": "plugin-norminette-vim",
         "plugin-windex-nvim": "plugin-windex-nvim",
-        "prism": "prism"
+        "prism": "prism",
+        "zen-profile": "zen-profile"
       }
     },
     "snowfall-lib": {
@@ -434,6 +435,23 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "zen-profile": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746465718,
+        "narHash": "sha256-01OvNaAQuz8mqS+8q9+FB4yGhu0kE2ovM1IWKW5Sc34=",
+        "ref": "main",
+        "rev": "e380f6ec10735e6c8ea3937b227b147c6a93a4cb",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/iluvshiwoon/zen-profile.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/iluvshiwoon/zen-profile.git"
       }
     }
   },

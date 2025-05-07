@@ -1,8 +1,8 @@
-{ config, pkgs, zen-profile, ... }:
+{ config, pkgs, inputs,  ... }:
 
 let
   zenProfileName = "l11nmepi.Default (release)"; # Replace with your profile name
-  zenProfileDir = "${zen-profile}/${zenProfileName}";
+  zenProfileDir = "${inputs.zen-profile}/${zenProfileName}";
   
   # Location where zen stores profiles on macOS
   zenProfilesDir = "$HOME/Library/Application Support/zen/Profiles";
@@ -40,9 +40,12 @@ in {
   # Add the sync script to your packages
   home.packages = [ synczenProfile ];
   
-  # Create an activation script to run the profile sync on each home-manager switch
-  home.activation.synczenProfile = config.lib.hm.dag.entryAfter ["writeBoundary"] ''
-    $DRY_RUN_CMD ${synczenProfile}/bin/sync-zen-profile
+ # Create an activation script to run the profile sync on each home-manager switch
+  home.activation.synczenProfile = {
+  after = ["writeBoundary"];
+  before = [];
+  data = ''
+    $VERBOSE_ARG ${synczenProfile}/bin/sync-zen-profile
   '';
-  
+};
 }

@@ -20,7 +20,8 @@
     nix-colors.url = "github:misterio77/nix-colors";
     prism.url = "github:IogaMaster/prism";
     zen-profile = {
-    url = "git+ssh://git@github.com/iluvshiwoon/zen-profile?ref=main";
+    url = "git+ssh://git@github.com/iluvshiwoon/zen-profile.git?ref=main";
+      flake = false;
   # This will use your SSH key for authentication
 };
     
@@ -46,7 +47,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, zen-profile, darwin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager,  darwin, ... }@inputs:
     let
       inherit (self) outputs;
       # Supported systems for your flake packages, shell, etc.

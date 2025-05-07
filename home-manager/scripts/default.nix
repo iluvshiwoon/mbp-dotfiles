@@ -20,7 +20,7 @@
   
   vm-start = pkgs.writeScriptBin "vm-start" (builtins.readFile ./scripts/vm-start.sh);
 in {
-  import = [
+  imports = [
     ./zen.nix
   ];
   home.packages = with pkgs; [
