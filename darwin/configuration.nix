@@ -23,6 +23,7 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
+  nix.settings.trusted-users = [ "kershuenlee" ];
   nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # Make nix commands consistent with the flake
@@ -106,6 +107,7 @@ homebrew = {
       # IM & audio & remote desktop & meeting
       #"telegram"
       #"discord"
+        "ghostty"
 	"zen-browser"
 #"bitwarden"
 
@@ -135,7 +137,7 @@ homebrew = {
   programs.zsh.enableBashCompletion = true;
   
   # Set up a default user
-  users.users.iluvshiwoon = {
+  users.users.kershuenlee = {
     name = "kershuenlee";
     home = "/Users/kershuenlee";
   };

@@ -44,7 +44,6 @@
   colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   home.packages = with pkgs; [
     # macOS compatible packages
-    unstable.darktable
     bemoji
     nix-prefetch
     nixfmt
@@ -74,7 +73,6 @@
     ffmpeg
     libnotify
     man-pages # extra man pages
-    mpv # video player
     ncdu # disk space
     openssl
     qalculate-gtk # calculator

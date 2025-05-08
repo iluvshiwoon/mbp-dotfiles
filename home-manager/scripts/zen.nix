@@ -4,14 +4,15 @@ let
   zen_dir = "$HOME/Library/Application Support/zen";
   
   # Script to deploy the zen profile
-  synczenProfile = pkgs.writeShellScriptBin "sync-zen-profile" ''
+    synczenProfile = pkgs.writeShellScriptBin "sync-zen-profile" ''
     #!/usr/bin/env bash
     set -euo pipefail
     mkdir -p "${zen_dir}"
-    if [ -z '$(ls -A "${zen_dir}")' ]; then
+    if [ -z "$(ls -A "${zen_dir}")" ]; then
       echo "zen config empty ! copying files..."
       # Copy the profile from the flake input to the zen directory
-      cp -r "${inputs.zen-profile}" "${zen_dir}"
+      cp -r "${inputs.zen-profile}"/* "${zen_dir}"
+      chmod -R u+w "${zen_dir}"
       echo "zen profile has been deployed successfully!"
     else
       echo "zen profile already exists. No action taken."

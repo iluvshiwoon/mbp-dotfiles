@@ -6,7 +6,7 @@
     ./wofi
     ./neovim
     ./kitty
-    ./emacs/emacs.nix
+    #./emacs/emacs.nix
     ./tmux/tmux.nix
   ];
 }

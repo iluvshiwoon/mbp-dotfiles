@@ -13,6 +13,7 @@
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
       eval "$(zoxide init --cmd cd zsh)"
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
     shellAliases = {
       # record = "wf-recorder --audio=alsa_output.pci-0000_08_00.6.analog-stereo.monitor -f $HOME/Videos/$(date +'%Y%m%d%H%M%S_1.mp4')";
