@@ -23,7 +23,6 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.settings.trusted-users = [ "kershuenlee" ];
   nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # Make nix commands consistent with the flake
@@ -33,6 +32,7 @@
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
+  trusted-users = [ "kershuenlee" ];
     # Deduplicate and optimize nix store
   };
   nix.optimise.automatic = true;
