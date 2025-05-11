@@ -1,13 +1,16 @@
-{ custom ? {
-  font = "JetBrainsMono Nerd Font";
-  fontsize = "12";
-  primary_accent = "cba6f7";
-  secondary_accent = "89b4fa";
-  tertiary_accent = "cdd6f4";
-  background = "11111B";
-  opacity = ".98";
-  cursor = "Numix-Cursor";
-}, ... }: {
+{
+  custom ? {
+    font = "JetBrainsMono Nerd Font";
+    fontsize = "12";
+    primary_accent = "cba6f7";
+    secondary_accent = "89b4fa";
+    tertiary_accent = "cdd6f4";
+    background = "11111B";
+    opacity = ".98";
+    cursor = "Numix-Cursor";
+  },
+  ...
+}: {
   programs.waybar.style = ''
     * {
         border: none;
@@ -72,19 +75,19 @@
     }
     #memory {
         color: #${custom.tertiary_accent};
-        border-radius: 0px 0 0px 0px;      
+        border-radius: 0px 0 0px 0px;
         padding-left: 9px;
         padding-right: 9px;
       }
     #disk {
         color: #${custom.tertiary_accent};
-        border-radius: 0px 0 0px 0px;      
+        border-radius: 0px 0 0px 0px;
         padding-left: 9px;
         padding-right: 9px;
     }
     #battery {
         color: #${custom.tertiary_accent};
-        border-radius: 0px 24px 10px 0px;      
+        border-radius: 0px 24px 10px 0px;
         padding-left: 9px;
         padding-right: 15px;
     }
@@ -105,7 +108,7 @@
     }
     #network {
         color: #${custom.tertiary_accent};
-        border-radius: 0px 24px 10px 0px;      
+        border-radius: 0px 24px 10px 0px;
         padding-left: 9px;
         padding-right: 15px;
     }

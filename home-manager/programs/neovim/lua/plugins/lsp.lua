@@ -61,7 +61,7 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
-local servers = { 'nil_ls', 'ccls', 'bashls', 'lua_ls' }
+local servers = { --[[ 'nil_ls', ]] --[[ 'ccls', ]] 'bashls', 'lua_ls', 'clangd', 'nixd' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -69,8 +69,29 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig.nil_ls.setup{}
-lspconfig.ccls.setup{}
+-- lspconfig.nil_ls.setup{}
+-- lspconfig.ccls.setup{}
+lspconfig.clangd.setup{}
+lspconfig.nixd.setup{
+   cmd = { "nixd" },
+   settings = {
+      nixd = {
+         nixpkgs = {
+            expr = "import <nixpkgs> { }",
+         },
+         formatting = {
+            command = { "nixfmt" },
+         },
+         options = {
+            nix_darwin = {
+               expr = '(builtins.getFlake ("git+file://" + toString ./.)).darwinConfigurations.Kers-MacBook-Pro.options',
+            },
+            home_manager = {
+               expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."kershuenlee@Kers-MacBook-Pro".options',
+            },
+         },
+      },
+   },}
 lspconfig.bashls.setup{}
 lspconfig.lua_ls.setup{}
 

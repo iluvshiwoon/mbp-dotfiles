@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   custom = {
     font = "JetBrainsMono Nerd Font";
     fontsize = "12";
@@ -28,11 +27,12 @@ let
     };
   };
 in {
-  programs.waybar = { enable = true; };
-  programs.waybar.package = pkgs.waybar.overrideAttrs
-    (oa: { mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ]; });
+  programs.waybar = {enable = true;};
+  programs.waybar.package =
+    pkgs.waybar.overrideAttrs
+    (oa: {mesonFlags = (oa.mesonFlags or []) ++ ["-Dexperimental=true"];});
 
-  _module.args = { inherit custom; };
+  _module.args = {inherit custom;};
   imports = [
     ./setting.nix
     ./style.nix

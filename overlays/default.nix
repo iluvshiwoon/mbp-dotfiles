@@ -10,8 +10,8 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-nodejs = prev.nodejs_22;
-nodejs-slim = prev.nodejs-slim_22;
+    nodejs = prev.nodejs_22;
+    nodejs-slim = prev.nodejs-slim_22;
     #vimPlugins = prev.vimPlugins // {
     #  betterTerm-nvim = prev.vimUtils.buildVimPlugin {
     #    name = "betterTerm.nvim";
@@ -30,7 +30,7 @@ nodejs-slim = prev.nodejs-slim_22;
     #    src = inputs.plugin-windex-nvim;
     #  };
     # };
-    };
+  };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'

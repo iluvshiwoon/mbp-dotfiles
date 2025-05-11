@@ -1,6 +1,13 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -82,15 +89,15 @@
     bc
     # Remove packages that don't work well on macOS or are redundant:
     # brightnessctl, cool-retro-term, smplayer, cmatrix, gparted, valgrind, etc.
-    
+
     # Install nerd fonts
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
   ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;

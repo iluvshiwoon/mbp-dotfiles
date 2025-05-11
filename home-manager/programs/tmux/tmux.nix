@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.tmux = {
     enable = true;
     plugins = with pkgs; [
@@ -8,15 +10,15 @@
         plugin = tmuxPlugins.vim-tmux-navigator;
       }
     ];
-    
+
     # Explicitly ensure zsh is used
     # shell = "${pkgs.zsh}/bin/zsh";
-    
+
     extraConfig = ''
       # Set both default-shell and default-command to ensure zsh is used
       # set -g default-shell "${pkgs.zsh}/bin/zsh"
       set -g default-command "${pkgs.zsh}/bin/zsh"
-      
+
       set -ag terminal-overrides ',xterm-256color:RGB'
       set -g default-terminal 'tmux-256color'
       set -g prefix C-a

@@ -1,8 +1,7 @@
-{ pkgs, ... }: 
-{
+{pkgs, ...}: {
   programs.btop = {
     enable = true;
-    
+
     settings = {
       color_theme = "dracula";
       theme_background = false;
@@ -10,5 +9,5 @@
     };
   };
 
-  home.packages = (with pkgs; [ nvtop-intel ]);
+  home.packages = with pkgs; [nvtop-intel];
 }

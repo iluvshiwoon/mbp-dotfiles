@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -6,7 +10,7 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" ];
+      plugins = ["git" "fzf"];
     };
     initExtraFirst = ''
       export PATH=~/.config/emacs/bin:$PATH
@@ -14,6 +18,19 @@
       export "MICRO_TRUECOLOR=1"
       eval "$(zoxide init --cmd cd zsh)"
       eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
+
+    initExtra = ''
+      flakify () {
+        if [ -z "$1" ]; then
+          echo "Error: Template name required"
+          echo "Usage: nix-init-template <template-name>"
+          return 1
+        fi
+
+        nix flake init -t "github:the-nix-way/dev-templates#$1"
+        direnv allow
+      }
     '';
     shellAliases = {
       # record = "wf-recorder --audio=alsa_output.pci-0000_08_00.6.analog-stereo.monitor -f $HOME/Videos/$(date +'%Y%m%d%H%M%S_1.mp4')";
@@ -35,11 +52,9 @@
       cdnix = "cd ~/nixos-config && codium ~/nixos-config";
       nix-shell = "nix-shell --run zsh";
       nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
-      nix-switchu =
-        "sudo nixos-rebuild switch --upgrade --flake ~/nixos-config#nixos";
+      nix-switchu = "sudo nixos-rebuild switch --upgrade --flake ~/nixos-config#nixos";
       nix-flake-update = "sudo nix flake update ~/nixos-config#";
-      nix-clean =
-        "sudo nix-collect-garbage && sudo nix-collect-garbage -d && sudo rm /nix/var/nix/gcroots/auto/* && nix-collect-garbage && nix-collect-garbage -d";
+      nix-clean = "sudo nix-collect-garbage && sudo nix-collect-garbage -d && sudo rm /nix/var/nix/gcroots/auto/* && nix-collect-garbage && nix-collect-garbage -d";
       # nix-clean = "sudo nix-collect-garbage -d";
       # nix-cleanold = "sudo nix-collect-garbage --delete-old";
       # nix-cleanboot = "sudo /run/current-system/bin/switch-to-configuration boot";

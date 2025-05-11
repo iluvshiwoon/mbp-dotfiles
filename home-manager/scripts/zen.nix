@@ -1,10 +1,13 @@
-{ config, pkgs, inputs,  ... }:
-
-let
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   zen_dir = "$HOME/Library/Application Support/zen";
-  
+
   # Script to deploy the zen profile
-    synczenProfile = pkgs.writeShellScriptBin "sync-zen-profile" ''
+  synczenProfile = pkgs.writeShellScriptBin "sync-zen-profile" ''
     #!/usr/bin/env bash
     set -euo pipefail
     mkdir -p "${zen_dir}"
@@ -18,18 +21,16 @@ let
       echo "zen profile already exists. No action taken."
     fi
   '';
-
 in {
-  
   # Add the sync script to your packages
-  home.packages = [ synczenProfile ];
-  
- # Create an activation script to run the profile sync on each home-manager switch
+  home.packages = [synczenProfile];
+
+  # Create an activation script to run the profile sync on each home-manager switch
   home.activation.synczenProfile = {
-  after = ["writeBoundary"];
-  before = [];
-  data = ''
-    $VERBOSE_ARG ${synczenProfile}/bin/sync-zen-profile
-  '';
-};
+    after = ["writeBoundary"];
+    before = [];
+    data = ''
+      $VERBOSE_ARG ${synczenProfile}/bin/sync-zen-profile
+    '';
+  };
 }

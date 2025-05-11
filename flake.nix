@@ -5,19 +5,20 @@
       # Query the mirror of USTC first, and then the official cache.
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
-	      "https://nix-community.cachix.org"
-
+      "https://nix-community.cachix.org"
     ];
-    trusted-public-keys = ["nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
   };
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
-    
+
     # Nixpkgs-unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,11 +31,11 @@
     nix-colors.url = "github:misterio77/nix-colors";
     prism.url = "github:IogaMaster/prism";
     zen-profile = {
-    url = "git+ssh://git@github.com/iluvshiwoon/zen-profile.git?ref=main";
+      url = "git+ssh://git@github.com/iluvshiwoon/zen-profile.git?ref=main";
       flake = false;
-  # This will use your SSH key for authentication
-};
-    
+      # This will use your SSH key for authentication
+    };
+
     # Plugins
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     plugin-betterTerm-nvim.url = "github:CRAG666/betterTerm.nvim";
@@ -45,7 +46,7 @@
     plugin-norminette-vim.flake = false;
     plugin-windex-nvim.url = "github:declancm/windex.nvim";
     plugin-windex-nvim.flake = false;
-    
+
     # Theme-related inputs
     catppuccin-bat = {
       url = "github:catppuccin/bat";
@@ -57,62 +58,67 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager,  darwin, ... }@inputs:
-    let
-      inherit (self) outputs;
-      # Supported systems for your flake packages, shell, etc.
-      systems = [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
-      # This is a function that generates an attribute by calling a function you
-      # pass to it, with each system as an argument
-      forAllSystems = nixpkgs.lib.genAttrs systems;
-    in {
-      # Your custom packages
-      # Accessible through 'nix build', 'nix shell', etc
-      packages =
-        forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-      # Formatter for your nix files, available through 'nix fmt'
-      formatter =
-        forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    darwin,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+  in {
+    # Your custom packages
+    # Accessible through 'nix build', 'nix shell', etc
+    packages =
+      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    # Formatter for your nix files, available through 'nix fmt'
+    formatter =
+      forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
-      # Your custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs; };
-      # Reusable home-manager modules you might want to export
-      homeManagerModules = import ./modules/home-manager;
-      # Reusable darwin modules
-      darwinModules = import ./modules/darwin;
+    # Your custom packages and modifications, exported as overlays
+    overlays = import ./overlays {inherit inputs;};
+    # Reusable home-manager modules you might want to export
+    homeManagerModules = import ./modules/home-manager;
+    # Reusable darwin modules
+    darwinModules = import ./modules/darwin;
 
-      # nix-darwin configuration entrypoint
-      # Available through 'darwin-rebuild switch --flake .#your-hostname'
-      darwinConfigurations = {
-        # Replace with your MacBook hostname
-        Kers-MacBook-Pro = darwin.lib.darwinSystem {
-          system = "aarch64-darwin"; # M4 chip uses aarch64 architecture
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            # Our main darwin configuration file
-            ./darwin/configuration.nix
-          ];
-        };
-      };
-
-      # Standalone home-manager configuration entrypoint
-      # Available through 'home-manager --flake .#your-username@your-hostname'
-      homeConfigurations = {
-        # Update with your macOS username
-        "kershuenlee@Kers-MacBook-Pro" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Use aarch64-darwin for M4
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [
-            # Our main home-manager configuration file
-            ./home-manager/home.nix
-          ];
-        };
+    # nix-darwin configuration entrypoint
+    # Available through 'darwin-rebuild switch --flake .#your-hostname'
+    darwinConfigurations = {
+      # Replace with your MacBook hostname
+      Kers-MacBook-Pro = darwin.lib.darwinSystem {
+        system = "aarch64-darwin"; # M4 chip uses aarch64 architecture
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          # Our main darwin configuration file
+          ./darwin/configuration.nix
+        ];
       };
     };
+
+    # Standalone home-manager configuration entrypoint
+    # Available through 'home-manager --flake .#your-username@your-hostname'
+    homeConfigurations = {
+      # Update with your macOS username
+      "kershuenlee@Kers-MacBook-Pro" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Use aarch64-darwin for M4
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          # Our main home-manager configuration file
+          ./home-manager/home.nix
+        ];
+      };
+    };
+  };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.neovim = let
     toLua = str: ''
       lua << EOF
@@ -18,6 +23,7 @@
     vimdiffAlias = true;
 
     extraPackages = with pkgs; [
+      nixd
       stylua
       lazygit
       prettierd
@@ -26,14 +32,13 @@
       nodePackages_latest.typescript-language-server
       typescript
       lua-language-server
-      nil
-      ccls
+      # ccls
       nodePackages.bash-language-server
       #nodePackages.pyright
       vscode-extensions.vadimcn.vscode-lldb
       nixfmt
       astyle
-      clang-tools
+      # clang-tools
     ];
 
     plugins = with pkgs.vimPlugins; [
@@ -75,7 +80,6 @@
       {
         plugin = alpha-nvim;
         config = toLuaFile ./lua/plugins/alpha.lua;
-
       }
 
       {

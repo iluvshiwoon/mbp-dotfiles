@@ -1,5 +1,9 @@
-{ pkgs, inputs, config, ... }: 
-  {
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}: {
   home.packages = [
     (pkgs.emacsWithPackagesFromUsePackage {
       config = ./emacs.d/init.el;

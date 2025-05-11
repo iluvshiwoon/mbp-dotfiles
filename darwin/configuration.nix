@@ -1,9 +1,17 @@
 # This is your nix-darwin configuration file
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # You can import other darwin modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/darwin):
     # outputs.darwinModules.example
+    ./system-settings.nix
   ];
 
   nixpkgs = {
@@ -32,7 +40,7 @@
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-  trusted-users = [ "kershuenlee" ];
+    trusted-users = ["kershuenlee"];
     # Deduplicate and optimize nix store
   };
   nix.optimise.automatic = true;
@@ -40,7 +48,7 @@
   # Enable garbage collection to happen automatically
   nix.gc = {
     automatic = true;
-    interval = { Day = 7; };
+    interval = {Day = 7;};
     options = "--delete-older-than 7d";
   };
 
@@ -49,18 +57,18 @@
 
   # Set your hostname
   networking.hostName = "Kers-MacBook-Pro";
-  
+
   # Install system-wide packages
   environment.systemPackages = with pkgs; [
     git
     vim
   ];
-homebrew = {
+  homebrew = {
     enable = true;
 
-	global.autoUpdate = false;
+    global.autoUpdate = false;
     onActivation = {
-#      autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
+      #      autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
       upgrade = true; # Upgrade outdated casks, formulae, and App Store apps
       # 'zap': uninstalls all formulae(and related files) not listed in the generated Brewfile
       cleanup = "zap";
@@ -69,7 +77,7 @@ homebrew = {
     # Applications to install from Mac App Store using mas.
     # You need to install all these Apps manually first so that your apple account have records for them.
     # otherwise Apple Store will refuse to install them.
-    # For details, see https://github.com/mas-cli/mas 
+    # For details, see https://github.com/mas-cli/mas
     masApps = {
       # TODO Feel free to add your favorite apps here.
 
@@ -80,7 +88,7 @@ homebrew = {
       # WeCom = 1189898970;  # Wechat for Work
       # TecentMetting = 1484048379;
       # QQMusic = 595615424;
-     # Bitwarden = 1352778147; 
+      # Bitwarden = 1352778147;
     };
 
     taps = [
@@ -107,9 +115,9 @@ homebrew = {
       # IM & audio & remote desktop & meeting
       #"telegram"
       #"discord"
-        "ghostty"
-	"zen-browser"
-#"bitwarden"
+      "ghostty"
+      "zen-browser"
+      #"bitwarden"
 
       #"anki"
       #"iina" # video player
@@ -126,60 +134,18 @@ homebrew = {
   # Configure shell - ZSH comes by default on macOS
   programs.zsh.enable = true;
 
-  # Enable Touch ID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
-
   # Auto upgrade nix package and the daemon service
   services.nix-daemon.enable = true;
 
   # Create /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enableCompletion = true;
   programs.zsh.enableBashCompletion = true;
-  
+
   # Set up a default user
   users.users.kershuenlee = {
     name = "kershuenlee";
     home = "/Users/kershuenlee";
   };
-
-  # macOS system settings
-  system = {
-    #    # Configure keyboard
-    #    keyboard = {
-    #      enableKeyMapping = true;
-    #      remapCapsLockToControl = true;
-    #    };
-    #
-    #    # Configure default applications
-    #    defaults = {
-    #      NSGlobalDomain = {
-    #        AppleKeyboardUIMode = 3;
-    #        ApplePressAndHoldEnabled = false;
-    #        InitialKeyRepeat = 20;
-    #        KeyRepeat = 1;
-    #        NSAutomaticCapitalizationEnabled = false;
-    #        NSAutomaticDashSubstitutionEnabled = false;
-    #        NSAutomaticPeriodSubstitutionEnabled = false;
-    #        NSAutomaticQuoteSubstitutionEnabled = false;
-    #        NSAutomaticSpellingCorrectionEnabled = false;
-    #        _HIHideMenuBar = false;
-    #      };
-    #
-    #      dock = {
-    #        autohide = true;
-    #        orientation = "bottom";
-    #        showhidden = true;
-    #        mru-spaces = false;
-    #      };
-    #
-    #      finder = {
-    #        AppleShowAllExtensions = true;
-    #        FXEnableExtensionChangeWarning = false;
-    #        QuitMenuItem = true;
-    #        _FXShowPosixPathInTitle = true;
-    #      };
-    #    };
-      };
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

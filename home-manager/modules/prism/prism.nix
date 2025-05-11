@@ -1,5 +1,8 @@
-{config, pkgs, ...}: 
 {
+  config,
+  pkgs,
+  ...
+}: {
   prism = {
     enable = true;
     wallpapers = ./wallpapers;
