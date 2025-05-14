@@ -7,12 +7,10 @@
   pkgs,
   ...
 }: {
-  # You can import other darwin modules here
+
   imports = [
-    # If you want to use modules your own flake exports (from modules/darwin):
-    # outputs.darwinModules.example
     ./system-settings.nix
-  ];
+  ] ++ (builtins.attrValues outputs.darwinModules); # list: value of attr in set
 
   nixpkgs = {
     # You can add overlays here

@@ -99,11 +99,11 @@
       # Replace with your MacBook hostname
       Kers-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin"; # M4 chip uses aarch64 architecture
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs ;};
         modules = [
           # Our main darwin configuration file
           ./darwin/configuration.nix
-        ];
+        ] ;
       };
     };
 
