@@ -1,5 +1,12 @@
 {...}: {
   security.pam.enableSudoTouchIdAuth = true;
+
+  myModules.screenshots = {
+    enable = true;
+    path = "/Users/kershuenlee/Pictures/Screenshots";
+    usernameForPath = "kershuenlee";
+  };
+
   system = {
     #    # Configure keyboard
     #    keyboard = {

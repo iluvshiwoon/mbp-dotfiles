@@ -49,20 +49,20 @@ in
 
     # 2. Ensure the screenshot directory exists using a system activation script
     # This script runs as root during system activation (e.g., after `darwin-rebuild switch`).
-    system.activationScripts.ensureScreenshotDirFromNixDarwin = {
+    system.activationScripts.userDefaults = { #only certain name for activationsScripts are run see activation-scripts.nix
       text = ''
-        echo "Nix-Darwin (no HM): Ensuring screenshot directory ${cfg.path} exists..."
+        echo "myModules.screenshots: Ensuring screenshot directory ${cfg.path} exists..."
         # Create the directory. The -p flag creates parent directories if they don't exist
         # and doesn't error if the directory already exists.
         ${pkgs.coreutils}/bin/mkdir -p "${cfg.path}"
-        echo "Nix-Darwin (no HM): Directory ${cfg.path} created/ensured."
+        echo "myModules.screenshots: Directory ${cfg.path} created/ensured."
 
         # If a username is provided and the path likely belongs to that user,
         # attempt to set ownership. This is important because mkdir above runs as root.
         ${lib.optionalString (cfg.usernameForPath != null) ''
-          echo "Nix-Darwin (no HM): Attempting to set ownership of ${cfg.path} to ${cfg.usernameForPath}..."
-          ${pkgs.coreutils}/bin/chown -R "${cfg.usernameForPath}" "${cfg.path}" || echo "Nix-Darwin (no HM): chown command failed, this might be okay if permissions are already correct or path is not user-specific."
-          echo "Nix-Darwin (no HM): Ownership adjustment attempted for ${cfg.usernameForPath} on ${cfg.path}."
+          echo "myModules.screenshots: Attempting to set ownership of ${cfg.path} to ${cfg.usernameForPath}..."
+          ${pkgs.coreutils}/bin/chown -R "${cfg.usernameForPath}" "${cfg.path}" || echo "myModules.screenshots: chown command failed, this might be okay if permissions are already correct or path is not user-specific."
+          echo "myModules.screenshots: Ownership adjustment attempted for ${cfg.usernameForPath} on ${cfg.path}."
         ''}
       '';
       # Dependencies can be specified if needed, e.g., if this script
