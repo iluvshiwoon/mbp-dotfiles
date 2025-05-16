@@ -28,10 +28,11 @@
           return 1
         fi
 
-        nix flake init -t "github:the-nix-way/dev-templates#$1"
+        nix flake init --refresh -t "github:iluvshiwoon/dev-env#$1"
         direnv allow
       }
     '';
+
     shellAliases = {
       # record = "wf-recorder --audio=alsa_output.pci-0000_08_00.6.analog-stereo.monitor -f $HOME/Videos/$(date +'%Y%m%d%H%M%S_1.mp4')";
 
