@@ -8,17 +8,10 @@
   };
 
   system = {
-    #    # Configure keyboard
-    #    keyboard = {
-    #      enableKeyMapping = true;
-    #      remapCapsLockToControl = true;
-    #    };
-    #
-    #    # Configure default applications
     defaults = {
       dock = {
         autohide = true;
-        autohide-delay = 0.5;
+        autohide-delay = 0.4;
         static-only = true;
         tilesize = 50;
         show-recents = true;
@@ -37,29 +30,28 @@
       screencapture = {
         disable-shadow = true;
       };
-      #      NSGlobalDomain = {
-      #        AppleKeyboardUIMode = 3;
-      #        ApplePressAndHoldEnabled = false;
-      #        InitialKeyRepeat = 20;
-      #        KeyRepeat = 1;
-      #        NSAutomaticCapitalizationEnabled = false;
-      #        NSAutomaticDashSubstitutionEnabled = false;
-      #        NSAutomaticPeriodSubstitutionEnabled = false;
-      #        NSAutomaticQuoteSubstitutionEnabled = false;
-      #        NSAutomaticSpellingCorrectionEnabled = false;
-      #        _HIHideMenuBar = false;
-      #      };
-      #
 
       finder = {
+        AppleShowAllExtensions = true;
+        CreateDesktop = false;
+        FXDefaultSearchScope = "SCcf";
+        FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv";
+        FXRemoveOldTrashItems = true;
+        _FXShowPosixPathInTitle = true;
+        _FXSortFoldersFirst = true;
+        NewWindowTarget = "Home";
+        QuitMenuItem = false; # finder is responsible for a lot of things on macOS desktop
         ShowPathbar = true;
         ShowStatusBar = true;
-        _FXShowPosixPathInTitle = true;
-        FXDefaultSearchScope = "SCcf";
-        NewWindowTarget = "Home";
-        QuitMenuItem = true;
-        AppleShowAllExtensions = true;
-        FXEnableExtensionChangeWarning = false;
+      };
+      CustomUserPreferences = { # question about user / system wide for everythin darwin does as it's seems to be changing rn on github
+        "com.apple.finder" = {
+          "FinderSpawnTab" = true; # cmd + click open tab (default)
+        };
+      };
+      NSGlobalDomain = {
+        _HIHideMenuBar = true;
       };
     };
   };
