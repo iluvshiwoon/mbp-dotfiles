@@ -30,6 +30,7 @@
 
         nix flake init --refresh -t "github:iluvshiwoon/dev-env#$1"
         direnv allow
+        echo -e ".direnv\n.envrc" >> ./.gitignore
       }
     '';
 
