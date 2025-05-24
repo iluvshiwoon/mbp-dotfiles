@@ -29,7 +29,6 @@
 
     # Additional inputs you still need
     nix-colors.url = "github:misterio77/nix-colors";
-    prism.url = "github:IogaMaster/prism";
     zen-profile = {
       url = "git+ssh://git@github.com/iluvshiwoon/zen-profile.git?ref=main";
       flake = false;

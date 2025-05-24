@@ -20,7 +20,6 @@
     ./modules
     ./theme
     inputs.nix-colors.homeManagerModules.default
-    inputs.prism.homeModules.prism
   ];
 
   nixpkgs = {
