@@ -105,6 +105,7 @@
       "ghostty"
       "utm"
       "zen-browser"
+      "tor-browser"
     ];
   };
 

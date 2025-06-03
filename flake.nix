@@ -27,8 +27,6 @@
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Additional inputs you still need
-    nix-colors.url = "github:misterio77/nix-colors";
     zen-profile = {
       url = "git+ssh://git@github.com/iluvshiwoon/zen-profile.git?ref=main";
       flake = false;

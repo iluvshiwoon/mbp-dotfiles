@@ -18,6 +18,7 @@
       # Set both default-shell and default-command to ensure zsh is used
       # set -g default-shell "${pkgs.zsh}/bin/zsh"
       set -g default-command "${pkgs.zsh}/bin/zsh"
+      set -s set-clipboard on
 
       set -ag terminal-overrides ',xterm-256color:RGB'
       set -g default-terminal 'tmux-256color'

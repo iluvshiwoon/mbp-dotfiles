@@ -3,8 +3,6 @@
 {
   inputs,
   outputs,
-  lib,
-  config,
   pkgs,
   ...
 }: {
@@ -15,11 +13,9 @@
 
     # Import your other home-manager configurations
     ./scripts
-    ./shell
     ./programs
     ./modules
     ./theme
-    inputs.nix-colors.homeManagerModules.default
   ];
 
   nixpkgs = {
@@ -47,47 +43,12 @@
     homeDirectory = "/Users/kershuenlee"; # Note: macOS uses /Users/ not /home/
   };
 
-  colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   home.packages = with pkgs; [
-    # macOS compatible packages
-    bemoji
-    nix-prefetch
-    nixfmt
-    #nodejs_21
-    cmake
-    gnumake
     tree
-    unzip
-    ripgrep
     coreutils
-    fd
-    bitwise # cli tool for bit / hex manipulation
-    eza # ls replacement
-    entr # perform action when file change
-    file # Show file information
     fzf # fuzzy finder
-    lazygit
-    #libreoffice
-    #nitch # system fetch util
-    nix-prefetch-github
-    pipx # Install Python applications in isolated environments
     ripgrep # grep replacement
-    todo # cli todo list
-    toipe # typing test in the terminal
-    yazi # terminal file manager
-    #youtube-dl
-    ffmpeg
-    libnotify
     man-pages # extra man pages
-    ncdu # disk space
-    openssl
-    qalculate-gtk # calculator
-    unzip
-    wget
-    xdg-utils
-    bc
-    # Remove packages that don't work well on macOS or are redundant:
-    # brightnessctl, cool-retro-term, smplayer, cmatrix, gparted, valgrind, etc.
 
     # Install nerd fonts
     (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
